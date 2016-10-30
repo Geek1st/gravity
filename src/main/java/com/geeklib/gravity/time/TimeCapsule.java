@@ -15,7 +15,7 @@ public interface TimeCapsule
 {
 	/**
 	 * 将日期类型转换成字符串形式提供的常见样式枚举
-	 * 
+	 * @see SimpleDateFormat
 	 * @author Geek1st
 	 *
 	 */
@@ -27,7 +27,7 @@ public interface TimeCapsule
 	/**
 	 * 获取当前日期，统一提供{@link java.util.Date} 与其子类的入口。
 	 * 使用时需要注意如下方式，需要指定具体内容来接收方法返回的对象。
-	 * {@code java.util.Date date = TimeCapsule.getDate(java.util.Date.class)}
+	 * <pre>java.util.Date date = TimeCapsule.getDate(java.util.Date.class)</pre> 
 	 * 
 	 * @param clazz
 	 *            需要获取日期类型的Class对象
@@ -98,5 +98,44 @@ public interface TimeCapsule
 	{
 		Calendar cal = Calendar.getInstance();
 		return convertDateToString(cal.getTime(), style);
+	}
+	
+	/**
+	 * 将时间转换成数值形式
+	 * 
+	 * @param style
+	 *            数值表示的样式，枚举来自 {@link Style}
+	 * @return 转换后的日期数值
+	 */
+	public static int convertDateToInt(java.util.Date date, Style style)
+	{
+		String str = convertDateToString(date, style);
+		return Integer.parseInt(str);
+	}
+	
+	/**
+	 * 将时间转换成数值形式
+	 * 
+	 * @param style
+	 *            根据指定的样式，参照{@link SimpleDateFormat}
+	 * @return 转换后的日期数值
+	 */
+	public static int convertDateToInt(java.util.Date date, String style)
+	{
+		String str = convertDateToString(date, style);
+		return Integer.parseInt(str);
+	}
+	
+	/**
+	 * 将当前时间转换成数值形式
+	 * 
+	 * @param style
+	 *            数值表示的样式，枚举来自 {@link Style}
+	 * @return 转换后的日期数值
+	 */
+	public static int convertCurrentDateToInt(Style style)
+	{
+		String str = convertCurrentDateToString(style);
+		return Integer.parseInt(str);
 	}
 }
