@@ -63,15 +63,20 @@ public class StringUtil
 			s = s.replace("元", "元零");
 		return s;
 	}
-	
+
 	/**
-	 * 转义单引号的方法。
-	 * 当SQL中包含有单引号的参数时会执行失败，使用该方法进行单引号转义
-	 * @param character 待转义的字符串
+	 * 转义单引号的方法。 当SQL中包含有单引号的参数时会执行失败，使用该方法进行单引号转义
+	 * 
+	 * @param character
+	 *            待转义的字符串
 	 * @return 转义后的字符串
 	 */
 	public static String espace(String character)
 	{
-		return character.replace("\'", "\'\'");
+		if (0 != character.indexOf("\'"))
+		{
+			return character.replace("\'", "\'\'");
+		}
+		return character;
 	}
 }
