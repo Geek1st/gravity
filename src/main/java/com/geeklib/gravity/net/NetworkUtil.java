@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -62,5 +65,26 @@ public class NetworkUtil
 		{
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 判断目标主机端口是否被使用
+	 * @param address 目标主机的地址
+	 * @param port 端口号
+	 * @return 如果目标主机端口被占用（正在监听使用，返回true，否则返回false）
+	 */
+	public static boolean isPortUsed(String address, int port)
+	{
+		Socket socket = null;
+		try
+		{
+			socket = new Socket(address, port);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return socket.isConnected();
 	}
 }
