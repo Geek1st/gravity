@@ -10,6 +10,8 @@ import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import com.geeklib.gravity.string.StringUtil;
+
 /**
  * 网络工具类
  * 
@@ -86,5 +88,36 @@ public class NetworkUtil
 		}
 		
 		return socket.isConnected();
+	}
+	
+	/**
+	 * 判断一个字符串是否是标准IPv4地址
+	 * @param address ip地址
+	 * @return
+	 */
+	public static boolean isIPv4(String address)
+	{
+		if(StringUtil.isNull(address))
+		{
+			return false;
+		}
+		
+		String[] nums = address.split(".");
+		
+		if(4 != nums.length)
+		{
+			return false;
+		}
+		
+		for (String string : nums)
+		{
+			int num = Integer.parseInt(string);
+			if(0 > num || 255 < num)
+			{
+				return false;
+			}
+		}
+		
+		return true;
 	}
 }
